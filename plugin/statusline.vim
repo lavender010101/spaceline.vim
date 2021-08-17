@@ -15,19 +15,23 @@ let g:loaded_spaceline = 1
 let g:seperate_style = get(g:, 'spaceline_seperate_style', 'slant')
 let g:spaceline_colorscheme = get(g:, 'spaceline_colorscheme', 'space')
 let g:spaceline_shortline_filetype = ['defx','coc-explorer','dbui','vista','vista_markdown','Mundo','MundoDiff','LuaTree']
-let g:spaceline_scroll_bar_chars = get(g:,'spaceline_scroll_bar_chars', [
-  \  '▁', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'
-  \  ])
+" let g:spaceline_scroll_bar_chars = get(g:,'spaceline_scroll_bar_chars', [
+"   \  '▁', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'
+"   \  ])
 
 let g:spaceline_diagnostic = get(g:,'spaceline_diagnostic_tool','coc')
 let g:spaceline_diff = get(g:,'spaceline_diff_tool','coc')
 
-let g:spaceline_errorsign = get(g:,'spaceline_diagnostic_errorsign', '●')
-let g:spaceline_warnsign = get(g:,'spaceline_diagnostic_warnsign', '●')
-let g:spaceline_oksign = get(g:,'spaceline_diagnostic_oksign', '')
+" let g:spaceline_errorsign = get(g:,'spaceline_diagnostic_errorsign', '●')
+" let g:spaceline_warnsign = get(g:,'spaceline_diagnostic_warnsign', '●')
+" let g:spaceline_oksign = get(g:,'spaceline_diagnostic_oksign', '')
+let g:spaceline_errorsign = get(g:,'spaceline_diagnostic_errorsign', ' ')
+let g:spaceline_warnsign = get(g:,'spaceline_diagnostic_warnsign', ' ')
+let g:spaceline_oksign = get(g:,'spaceline_diagnostic_oksign', '✓ ')
 
 let g:spaceline_branch_icon = get(g:,'spaceline_git_branch_icon','')
-let g:spaceline_diff_icon = get(g:,'spaceline_custom_diff_icon', ['','',''])
+" let g:spaceline_diff_icon = get(g:,'spaceline_custom_diff_icon', ['','',''])
+let g:spaceline_diff_icon = get(g:,'spaceline_custom_diff_icon', ['+','~','-'])
 let g:spaceline_funcicon = get(g:,'spaceline_function_icon','')
 
 

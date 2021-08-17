@@ -99,7 +99,8 @@ function! s:ActiveStatusLine()
       let s:statusline.="%#CocWarn#"
       let s:statusline.="%{spaceline#diagnostic#diagnostic_warn()}"
       let s:statusline.="\ "
-    elseif !empty(spaceline#file#file_size())
+    " elseif !empty(spaceline#file#file_size())
+    elseif !empty(expand('%t'))
       let s:statusline.="%#CocOK#"
       let s:statusline.="\ "
       let s:statusline.="%{spaceline#diagnostic#diagnostic_ok()}"
@@ -128,8 +129,12 @@ function! s:ActiveStatusLine()
     let s:statusline.="%#LineFormatRight#"
     let s:statusline.=g:sep.lineformatright
     let s:statusline.="%#StatusLineinfo#%{spaceline#file#file_type()}"
-    let s:statusline.="%#EndSeperate#"
-    " let s:statusline.="%{spaceline#scrollbar#scrollbar_instance()}"
+    " let s:statusline.="%#EndSeperate#"
+    " let s:statusline.="\ "
+    let s:statusline.="%#FileSize#"
+    let s:statusline.="\ "
+    let s:statusline.="%{spaceline#file#file_size()}"
+    let s:statusline.="\ "
     return s:statusline
 endfunction
 

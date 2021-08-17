@@ -32,8 +32,7 @@ function! spaceline#file#file_size()abort
   if !filereadable(expand('%:p'))
     return ''
   endif
-  let l:oksign = spaceline#diagnostic#diagnostic_ok()
-  return ' '.l:oksign.'  '.s:size(@%)
+  return s:size(@%)
 endfunction
 
 function! spaceline#file#file_name() abort
@@ -55,7 +54,7 @@ function! spaceline#file#file_encode()
 endfunction
 
 function! spaceline#file#file_format()
-  return winwidth(0) > 70 ? ('| '.&fileformat . ' ' ) : ''
+  return winwidth(0) > 70 ? (&fileformat . ' ' ) : ''
 endfunction
 
 function! s:current_file_name()
@@ -65,15 +64,17 @@ endfunction
 
 function! s:file_is_modified() abort
   return spaceline#utils#line_is_lean() || spaceline#utils#line_is_plain() ?  ''  :
-  \      &modified                                       ?  ' ' :
+  \      &modified                                       ?  ' *' :
   \      &modifiable                                     ?  ''  : ' -'
+  " \      &modified                                       ?  ' ' :
 endfunction
 
 function! s:file_readonly()
   if &filetype == "help"
     return ""
   elseif &readonly
-    return ""
+    " return ""
+    return "!"
   else
     return ""
   endif

@@ -107,6 +107,7 @@ function! spaceline#colorscheme#default#default()
   call spaceline#colors#spaceline_hl('HomeModeRightGit',s:slc,  'purple',  'blue')
   call spaceline#colors#spaceline_hl('FileNameRightEnd',s:slc,  'green',  'darknavy')
   call spaceline#colors#spaceline_hl('FileNameRightGit',s:slc,  'green',  'blue')
+  call spaceline#colors#spaceline_hl('FileSize',s:slc,  'green',  'gray')
 
   call spaceline#colors#spaceline_hl('SyntaxLeft',s:slc,  'blue',  'darknavy')
   call spaceline#colors#spaceline_hl('CocError',s:slc,  'red',  'darknavy')
