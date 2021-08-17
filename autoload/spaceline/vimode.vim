@@ -16,7 +16,7 @@ function! spaceline#vimode#vim_mode()
 			  \ "r":"REPLACE",
 			  \ "s":"🅢  ",
 			  \ "t":"🅣  ",
-			  \ "c":"🅒  ",
+			  \ "c":"COMMAND",
 			  \ "!":"SE "}
   return status[mode()]
 endfunction
