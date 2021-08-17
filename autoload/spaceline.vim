@@ -33,19 +33,24 @@ function! s:ActiveStatusLine()
       let s:statusline.="%#HomeModeRight#"
       let s:statusline.=g:sep.homemoderight
       let s:statusline.=spaceline#syntax#icon_syntax()
-      let s:statusline.="%#FileName#"
       let s:statusline.="\ "
+      let s:statusline.="%#FileName#"
       let s:statusline.="%{spaceline#file#file_name()}"
       let s:statusline.="\ "
+    elseif !empty(spaceline#vcs#git_branch())
+      let s:statusline.="%#HomeModeRightGit#"
+      let s:statusline.=g:sep.homemoderight
+	else
+      let s:statusline.="%#HomeModeRightEnd#"
+      let s:statusline.=g:sep.homemoderight
     endif
 
 
 	" git branch infos
     if !empty(spaceline#vcs#git_branch())
-	  if !empty(expand('%t'))
-	    " show seperator while mode exeist
-	    let s:statusline.="%#FileNameRight#"
-	    let s:statusline.=g:sep.filenameright
+      if !empty(expand('%t'))
+        let s:statusline.="%#FileNameRight#"
+        let s:statusline.=g:sep.filenameright
 	  endif
 	  " let s:statusline.="%#GitLeft#"
       " let s:statusline.=g:sep.gitleft
@@ -55,6 +60,7 @@ function! s:ActiveStatusLine()
       let s:statusline.="%#GitInfo#"
       let s:statusline.="%{spaceline#vcs#git_branch()}"
       let s:statusline.="\ "
+
 	  " squeeze the modified informations
 	  if squeeze_width > 40
         if spaceline#vcs#check_diff_empty('add')
@@ -70,6 +76,7 @@ function! s:ActiveStatusLine()
           let s:statusline.= "%{spaceline#vcs#diff_remove()}"
         endif
       endif
+
       let s:statusline.="%#GitRight#"
       let s:statusline.=g:sep.gitright
     endif
@@ -111,18 +118,18 @@ function! s:ActiveStatusLine()
     endif
     let s:statusline.="%#LineInfoLeft#"
     let s:statusline.=g:sep.lineinfoleft
-    if squeeze_width > 40
-      let s:statusline.="%#StatusEncod#"
-      let s:statusline.="\ "
-      let s:statusline.="%{spaceline#file#file_encode()}"
-      let s:statusline.="\ "
+    let s:statusline.="%#StatusEncod#"
+    " let s:statusline.="\ "
+    let s:statusline.="%{spaceline#file#file_encode()}"
+    let s:statusline.="\ "
+	if squeeze_width > 40
       let s:statusline.="%#StatusFileFormat#%{spaceline#file#file_format()}"
     endif
     let s:statusline.="%#LineFormatRight#"
     let s:statusline.=g:sep.lineformatright
     let s:statusline.="%#StatusLineinfo#%{spaceline#file#file_type()}"
     let s:statusline.="%#EndSeperate#"
-    let s:statusline.="%{spaceline#scrollbar#scrollbar_instance()}"
+    " let s:statusline.="%{spaceline#scrollbar#scrollbar_instance()}"
     return s:statusline
 endfunction
 
