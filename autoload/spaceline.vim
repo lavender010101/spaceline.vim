@@ -19,46 +19,44 @@ function! s:short_statusline() abort
 endfunction
 
 function! s:ActiveStatusLine()
-  let file_icon = spaceline#syntax#icon_syntax()
+	" mode indicator
+    let file_icon = spaceline#syntax#icon_syntax()
     let squeeze_width = winwidth(0) / 2
     let s:statusline=""
     let s:statusline.="%#HomeMode#"
     let s:statusline.="\ "
     let s:statusline.="%{spaceline#vimode#vim_mode()}"
-    let s:statusline.="%#HomeModeRight#"
-    let s:statusline.=g:sep.homemoderight
+
+
+	" filename
     if !empty(expand('%t'))
+      let s:statusline.="%#HomeModeRight#"
+      let s:statusline.=g:sep.homemoderight
       let s:statusline.=spaceline#syntax#icon_syntax()
       let s:statusline.="%#FileName#"
       let s:statusline.="\ "
       let s:statusline.="%{spaceline#file#file_name()}"
       let s:statusline.="\ "
-      let s:statusline.="%#FileNameRight#"
-      let s:statusline.=g:sep.filenameright
     endif
 
-    if !empty(spaceline#diagnostic#diagnostic_error())|| !empty(spaceline#diagnostic#diagnostic_warn()) && squeeze_width >40
-        let s:statusline.="%#CocError#"
-        let s:statusline.="\ "
-        let s:statusline.="%{spaceline#diagnostic#diagnostic_error()}"
-        let s:statusline.="\ "
-        let s:statusline.="%#CocWarn#"
-        let s:statusline.="%{spaceline#diagnostic#diagnostic_warn()}"
-        let s:statusline.="\ "
-    elseif !empty(spaceline#file#file_size()) && squeeze_width > 40
-        let s:statusline.="%#Filesize#"
-        let s:statusline.="%{spaceline#file#file_size()}"
-        let s:statusline.="\ "
-    endif
+
+	" git branch infos
     if !empty(spaceline#vcs#git_branch())
-        let s:statusline.="%#GitLeft#"
-        let s:statusline.=g:sep.gitleft
-        let s:statusline.="%#GitBranchIcon#"
-        let s:statusline.="\ "
-        let s:statusline.="%{spaceline#vcs#git_branch_icon()}"
-        let s:statusline.="%#GitInfo#"
-        let s:statusline.="%{spaceline#vcs#git_branch()}"
-        let s:statusline.="\ "
+	  if !empty(expand('%t'))
+	    " show seperator while mode exeist
+	    let s:statusline.="%#FileNameRight#"
+	    let s:statusline.=g:sep.filenameright
+	  endif
+	  " let s:statusline.="%#GitLeft#"
+      " let s:statusline.=g:sep.gitleft
+      " let s:statusline.="%#GitBranchIcon#"
+      " let s:statusline.="\ "
+      " let s:statusline.="%{spaceline#vcs#git_branch_icon()}"
+      let s:statusline.="%#GitInfo#"
+      let s:statusline.="%{spaceline#vcs#git_branch()}"
+      let s:statusline.="\ "
+	  " squeeze the modified informations
+	  if squeeze_width > 40
         if spaceline#vcs#check_diff_empty('add')
           let s:statusline.="%#GitAdd#"
           let s:statusline.= "%{spaceline#vcs#diff_add()}"
@@ -71,17 +69,38 @@ function! s:ActiveStatusLine()
           let s:statusline.="%#GitRemove#"
           let s:statusline.= "%{spaceline#vcs#diff_remove()}"
         endif
-        let s:statusline.="%#GitRight#"
-        let s:statusline.=g:sep.gitright
+      endif
+      let s:statusline.="%#GitRight#"
+      let s:statusline.=g:sep.gitright
     endif
-    if !empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
-        let s:statusline.="%#emptySeperate1#"
-        let s:statusline.=g:sep.emptySeperate1
+    " if !empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
+    "     let s:statusline.="%#emptySeperate1#"
+    "     let s:statusline.=g:sep.emptySeperate1
+    " endif
+    " if empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
+    "     let s:statusline.="%#emptySeperate1#"
+    "     let s:statusline.=g:sep.emptySeperate1
+    " endif
+
+
+	" syntax check
+    if !empty(spaceline#diagnostic#diagnostic_error())|| !empty(spaceline#diagnostic#diagnostic_warn())
+      let s:statusline.="%#CocError#"
+      let s:statusline.="\ "
+      let s:statusline.="%{spaceline#diagnostic#diagnostic_error()}"
+      let s:statusline.="\ "
+      let s:statusline.="%#CocWarn#"
+      let s:statusline.="%{spaceline#diagnostic#diagnostic_warn()}"
+      let s:statusline.="\ "
+    elseif !empty(spaceline#file#file_size())
+      let s:statusline.="%#CocOK#"
+      let s:statusline.="\ "
+      let s:statusline.="%{spaceline#diagnostic#diagnostic_ok()}"
+      let s:statusline.="\ "
     endif
-    if empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
-        let s:statusline.="%#emptySeperate1#"
-        let s:statusline.=g:sep.emptySeperate1
-    endif
+
+
+	" coc status bar
     let s:statusline.="%#CocBar#"
     let s:statusline.="\ "
     let s:statusline.="%{spaceline#status#coc_status()}"
