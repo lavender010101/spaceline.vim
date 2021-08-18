@@ -79,6 +79,9 @@ function! s:ActiveStatusLine()
 
       let s:statusline.="%#GitRight#"
       let s:statusline.=g:sep.gitright
+  elseif !empty(expand('%t'))
+        let s:statusline.="%#FileNameRightEnd#"
+        let s:statusline.=g:sep.filenameright
     endif
     " if !empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
     "     let s:statusline.="%#emptySeperate1#"
