@@ -32,7 +32,9 @@ function! s:ActiveStatusLine()
     if !empty(expand('%t'))
       let s:statusline.="%#HomeModeRight#"
       let s:statusline.=g:sep.homemoderight
-      let s:statusline.=spaceline#syntax#icon_syntax()
+	  if squeeze_width > 40
+        let s:statusline.=spaceline#syntax#icon_syntax()
+	  endif
       let s:statusline.="\ "
       let s:statusline.="%#FileName#"
       let s:statusline.="%{spaceline#file#file_name()}"
@@ -136,7 +138,6 @@ function! s:ActiveStatusLine()
     let s:statusline.="%#LineInfoLeft#"
     let s:statusline.=g:sep.lineinfoleft
     let s:statusline.="%#StatusEncod#"
-    " let s:statusline.="\ "
     let s:statusline.="%{spaceline#file#file_encode()}"
     let s:statusline.="\ "
 	if squeeze_width > 40
@@ -144,18 +145,26 @@ function! s:ActiveStatusLine()
     endif
     let s:statusline.="%#LineFormatRight#"
     let s:statusline.=g:sep.lineformatright
-    let s:statusline.="%#StatusLineinfo#%{spaceline#file#file_type()}"
+
+	let s:statusline.="%#StatusLineinfo#"
+	let s:statusline.="\ "
+    let s:statusline.="%{spaceline#file#cursor_line()}"
+
+    " let s:statusline.="%#StatusLineinfo#%{spaceline#file#file_type()}"
     " let s:statusline.="%#EndSeperate#"
     " let s:statusline.="\ "
 
-    if !empty(expand('%t'))
-      let s:statusline.="%#FileSize#"
-      let s:statusline.="\ "
-      let s:statusline.="%{spaceline#file#file_size()}"
-      let s:statusline.="\ "
-    else
-      let s:statusline.="\ "
+	if squeeze_width > 40
+	  let s:statusline.=" : "
+	  let s:statusline.="%{spaceline#file#cursor_line()}"
+	  if !empty(expand('%t'))
+        let s:statusline.="%#FileSize#"
+		let s:statusline.="\ "
+        let s:statusline.="%{spaceline#file#file_size()}"
+      endif
     endif
+
+    let s:statusline.="\ "
 
     return s:statusline
 endfunction
