@@ -79,18 +79,11 @@ function! s:ActiveStatusLine()
 
       let s:statusline.="%#GitRight#"
       let s:statusline.=g:sep.gitright
-  elseif !empty(expand('%t'))
+    elseif !empty(expand('%t'))
         let s:statusline.="%#FileNameRightEnd#"
         let s:statusline.=g:sep.filenameright
     endif
-    " if !empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
-    "     let s:statusline.="%#emptySeperate1#"
-    "     let s:statusline.=g:sep.emptySeperate1
-    " endif
-    " if empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
-    "     let s:statusline.="%#emptySeperate1#"
-    "     let s:statusline.=g:sep.emptySeperate1
-    " endif
+
 
 
 	" syntax check
@@ -112,10 +105,30 @@ function! s:ActiveStatusLine()
 
 
 	" coc status bar
-    let s:statusline.="%#CocBar#"
-    let s:statusline.="\ "
-    let s:statusline.="%{spaceline#status#coc_status()}"
-    let s:statusline.="%="
+    if squeeze_width >40
+	  let s:statusline.="%#CocBar#"
+      let s:statusline.="\ "
+      let s:statusline.="%{spaceline#status#coc_status()}"
+      let s:statusline.="%="
+    endif
+
+
+
+	" set empty seperator
+    " if !empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
+    "     let s:statusline.="%#emptySeperate1#"
+    "     let s:statusline.=g:sep.emptySeperate1
+    " endif
+    " if empty(expand('%:t')) && empty(spaceline#vcs#git_branch())
+    "     let s:statusline.="%#emptySeperate1#"
+    "     let s:statusline.=g:sep.emptySeperate1
+    " endif
+
+
+    let s:statusline.="%#emptySeperate1#"
+    let s:statusline.='%='
+
+
     if squeeze_width >40
       let s:statusline.="%#VistaNearest#"
       let s:statusline.="%{spaceline#vista#vista_nearest()}"
@@ -134,10 +147,16 @@ function! s:ActiveStatusLine()
     let s:statusline.="%#StatusLineinfo#%{spaceline#file#file_type()}"
     " let s:statusline.="%#EndSeperate#"
     " let s:statusline.="\ "
-    let s:statusline.="%#FileSize#"
-    let s:statusline.="\ "
-    let s:statusline.="%{spaceline#file#file_size()}"
-    let s:statusline.="\ "
+
+    if !empty(expand('%t'))
+      let s:statusline.="%#FileSize#"
+      let s:statusline.="\ "
+      let s:statusline.="%{spaceline#file#file_size()}"
+      let s:statusline.="\ "
+    else
+      let s:statusline.="\ "
+    endif
+
     return s:statusline
 endfunction
 
