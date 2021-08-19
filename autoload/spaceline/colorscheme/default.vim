@@ -103,6 +103,7 @@ function! spaceline#colorscheme#default#default()
 
 
   " custom
+  call spaceline#colors#spaceline_hl('VistaNearest',s:slc,  'cyan',  'darknavy')
   call spaceline#colors#spaceline_hl('HomeModeRightEnd',s:slc,  'purple',  'darknavy')
   call spaceline#colors#spaceline_hl('HomeModeRightGit',s:slc,  'purple',  'blue')
   call spaceline#colors#spaceline_hl('FileNameRightEnd',s:slc,  'green',  'darknavy')

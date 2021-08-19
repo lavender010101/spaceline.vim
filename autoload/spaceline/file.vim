@@ -18,7 +18,18 @@ function! spaceline#file#file_type() abort
   \      &filetype ==? 'magit'            ? '  ' :
   \      &filetype =~? '\v^mundo(diff)?$' ? '  ' :
   \      spaceline#utils#line_is_lean() || spaceline#utils#line_is_plain() ? ' '  :
-  \      s:line_column()
+  \ ''
+  " \      s:line_column()
+endfunction
+
+function! spaceline#file#cursor_line() abort
+  let l:line = line('.') . "/" . line('$')
+  return l:line
+endfunction
+
+function! spaceline#file#cursor_column() abort
+  let l:column = line('.') . "/" . line('$')
+  return l:column
 endfunction
 
 function! s:line_column()
