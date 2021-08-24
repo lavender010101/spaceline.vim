@@ -8,13 +8,13 @@
 function! spaceline#vimode#vim_mode()
   let status= exists('g:spaceline_custom_vim_status') ? get(g:,'spaceline_custom_vim_status') : 
 			  \ {"n": "NORMAL ",
-			  \ "V":"VISUAL ",
+			  \ "V":"V-LINE",
 			  \ "v":"VISUAL ",
-			  \ "\<C-v>": "VISUAL ",
+			  \ "\<C-v>": "V-BLOCK ",
 			  \ "i":"INSERT ",
 			  \ "R":"REPLACE ",
 			  \ "r":"REPLACE ",
-			  \ "s":"🅢  ",
+			  \ "s":"SELECT ",
 			  \ "t":"🅣  ",
 			  \ "c":"COMMAND ",
 			  \ "!":"SE "}
